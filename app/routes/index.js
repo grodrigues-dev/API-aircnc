@@ -2,8 +2,8 @@ const express = require('express');
 
 const routes = express.Router();
 
-routes.get('/users/:idade', (req, res) => {
-    return res.json({idade: req.params.idade})
+routes.post('/users/', (req, res) => {
+    return res.json(req.body)
 })
 
 module.exports = routes;
