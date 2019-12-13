@@ -5,11 +5,12 @@ const multer = require('multer');
 const uploadConfig = require('../configs/upload');
 const routes = express.Router();
 const upload = multer(uploadConfig);
+const dashboard = require('../controllers/DashController')
 
 routes.post('/sessions', session.store);
-routes.post('/spot', upload.single('thumbnail'), spot.store);
-
-routes.get('/spot', spot.index);
+routes.post('/spots', upload.single('thumbnail'), spot.store);
+routes.get('/spots', spot.index);
+routes.get('/dashboard', dashboard.show);
 
 
 
