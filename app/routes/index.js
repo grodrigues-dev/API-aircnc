@@ -12,7 +12,7 @@ routes.post('/sessions', session.store);
 routes.post('/spots', upload.single('thumbnail'), spot.store);
 routes.get('/spots', spot.index);
 routes.get('/dashboard', dashboard.show);
-routes.post('/spots/:spot_id/bookings', booking.store);
+routes.get('/spots/:spot_id/bookings', booking.store);
 
 
 module.exports = routes;
