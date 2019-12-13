@@ -1,6 +1,8 @@
 module.exports = {
     async store(req, res){
-        return res.json(req.body)
+        console.log(req.body, req.file);
+        
+        return res.json({"ok" : true});
     }
 }
 
