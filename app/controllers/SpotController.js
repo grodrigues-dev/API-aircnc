@@ -2,13 +2,16 @@ const Spot = require('../models/Spot')
 
 module.exports = {
     async store(req, res){
-        const {fileName} = req.file; 
+        const {filename} = req.file; 
         const { company, techs, price} = req.body;
         const {user_id} = req.headers;
-
+        console.log(user_id);
+        
+        console.log(req.headers);
+        
         const spot = await Spot.create({
-            user_id, 
-            thumbnail: fileName, 
+            user: user_id, 
+            thumbnail: filename, 
             company, 
             techs: techs.split(',').map(tech => tech.trim()),
             price 
