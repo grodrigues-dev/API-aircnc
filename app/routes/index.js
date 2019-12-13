@@ -9,6 +9,8 @@ const upload = multer(uploadConfig);
 routes.post('/sessions', session.store);
 routes.post('/spot', upload.single('thumbnail'), spot.store);
 
+routes.get('/spot', spot.index);
+
 
 
 module.exports = routes;
