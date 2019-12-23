@@ -4,7 +4,7 @@ const SpotSchema = new mongoose.Schema({
     thumbnail: String, 
     company: String, 
     price: Number, 
-    techs: [String], 
+    tech: [String], 
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
