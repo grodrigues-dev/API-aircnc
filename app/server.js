@@ -11,14 +11,23 @@ const http = require('http');
 const server = http.Server(app);
 const io = socketio(server);
 
-io.on('connection', socket => {
-    console.log('Usuário conectado', socket.id);
-});
+let connectedUsers = {};
 
 mongoose.connect(process.env.MONGOCONNECT, {
     useNewUrlParser: true, 
     useUnifiedTopology: true
 }) ;
+
+io.on('connection', socket => {
+    const {user_id} = socket.handshake.query; 
+    connectedUsers[user_id] = socket_id;
+});
+
+app.use((req, res, next)=>{
+    req.io = io; 
+    req.connectedUsers = connectedUsers; 
+    return next();
+});
 
 app.use(express.json());
 app.use(cors())
