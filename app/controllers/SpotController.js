@@ -7,7 +7,6 @@ module.exports = {
     async index(req, res){
         const {techs} = req.query; 
         const spots = await Spot.find({techs}); 
-        console.log(req.query);
         return res.json(spots) 
     },
 

@@ -12,6 +12,9 @@ module.exports = {
             date
         }); 
 
+        console.log(req.body);
+        
+
         await booking.populate('spot').populate('user').execPopulate();
        
         const ownerSocket = req.connectedUsers[booking.spot.user]; 
