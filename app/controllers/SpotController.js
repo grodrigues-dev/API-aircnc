@@ -3,11 +3,9 @@ const User = require('../models/User');
 
 
 module.exports = {
-
     async index(req, res){
-        const {techs} = req.query; 
-        const spots = await Spot.find({techs}); 
-        return res.json(spots) 
+        const spots = await Spot.find(req.query); 
+        return res.json(spots);  
     },
 
     async store(req, res){
