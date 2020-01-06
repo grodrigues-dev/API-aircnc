@@ -5,9 +5,10 @@ module.exports = {
         const { email } = req.body;
         let user = await User.findOne({ email });
         if (!user) {
-            user = await User.create({ email });
-        }
+            return res.json(false)
+        } else {
         return res.json(user);
+        }
     },
     async register(req, res) {
         const {email} = req.body; 
@@ -19,11 +20,14 @@ module.exports = {
                 login: login
             }]
         })
+        console.log(req.body);
+        
         if (created.length<1) {
             let user = await User.create({
                 email: req.body.email,
                 login: req.body.login
             })
+            
             return res.json(user)
         } else {
             return res.json(false);
