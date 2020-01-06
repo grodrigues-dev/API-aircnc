@@ -20,6 +20,6 @@ routes.post('/spots/:spot_id/bookings', booking.store);
 //rotas web para aceitar ou rejeitar reservas
 routes.post('/bookings/:booking_id/approvals', approval.store); 
 routes.post('/bookings/:booking_id/rejections', rejection.store); 
-routes.post('/bookings/index', booking.show);
+routes.get('/bookings/index', booking.show);
 
 module.exports = routes;

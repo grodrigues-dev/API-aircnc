@@ -46,9 +46,17 @@ module.exports = {
                 $match: {
                     "owner.email": user_email
                 }
-            }, 
+            },{
+                $lookup: {
+                    from: "users", 
+                    localField: "user", 
+                    foreignField: "_id", 
+                    as: "user"
+                }
+            } 
         ])
-        
+        console.log(res);
+                
         return res.json(booking);
     }
 }
