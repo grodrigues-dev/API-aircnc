@@ -19,15 +19,12 @@ module.exports = {
             }, {
                 login: login
             }]
-        })
-        console.log(req.body);
-        
+        })        
         if (created.length<1) {
             let user = await User.create({
                 email: req.body.email,
                 login: req.body.login
             })
-            
             return res.json(user)
         } else {
             return res.json(false);

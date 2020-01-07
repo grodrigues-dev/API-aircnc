@@ -21,6 +21,8 @@ routes.post('/spots/:spot_id/bookings', booking.store);
 routes.post('/bookings/:booking_id/approvals', approval.store); 
 routes.post('/bookings/:booking_id/rejections', rejection.store); 
 routes.get('/bookings/index', booking.show);
+routes.get('/bookings/indexBookings', booking.getBookingsByUser);
 routes.post('/register', session.register);
+
 
 module.exports = routes;

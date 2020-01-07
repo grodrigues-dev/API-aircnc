@@ -11,10 +11,6 @@ module.exports = {
             spot: spot_id,
             date
         });
-
-        console.log(req.body);
-
-
         await booking.populate('spot').populate('user').execPopulate();
 
         const ownerSocket = req.connectedUsers[booking.spot.user];
@@ -26,7 +22,7 @@ module.exports = {
         return res.json(booking)
     },
     async show(req, res) {
-        const {user_email } = req.headers;
+        const { user_email } = req.headers;
         const booking = await Booking.aggregate([
             {
                 $lookup: {
@@ -35,28 +31,58 @@ module.exports = {
                     foreignField: "_id",
                     as: "spot"
                 }
-            },{
+            }, {
                 $lookup: {
-                    from: "users", 
-                    localField: "spot.user", 
-                    foreignField: "_id", 
+                    from: "users",
+                    localField: "spot.user",
+                    foreignField: "_id",
                     as: "owner"
                 }
-            },{
+            }, {
                 $match: {
                     "owner.email": user_email
                 }
-            },{
+            }, {
                 $lookup: {
-                    from: "users", 
-                    localField: "user", 
-                    foreignField: "_id", 
+                    from: "users",
+                    localField: "user",
+                    foreignField: "_id",
                     as: "user"
                 }
-            } 
+            }
         ])
-        console.log(res);
-                
+        return res.json(booking);
+    },
+    async getBookingsByUser(req,res) {
+        const { user_email } = req.headers;
+        const booking = await Booking.aggregate([
+            {
+                $lookup: {
+                    from: "spots",
+                    localField: "spot",
+                    foreignField: "_id",
+                    as: "spot"
+                }
+            }, {
+                $lookup: {
+                    from: "users",
+                    localField: "spot.user",
+                    foreignField: "_id",
+                    as: "owner"
+                }
+            }, {
+                $lookup: {
+                    from: "users",
+                    localField: "user",
+                    foreignField: "_id",
+                    as: "user"
+                }
+            }, {
+                $match: {
+                    "user.email": user_email
+                }
+            }
+        ])
         return res.json(booking);
     }
 }
